@@ -1,0 +1,87 @@
+<apex:page controller="ProductListPageController" sidebar="false" docType="html-5.0"  >
+    <apex:slds />
+    <apex:form >
+        <apex:PageBlock title="Product List" id="prodList">
+            <apex:pageMessages />
+            <div class="slds-scope slds-grid slds-wrap slds-grid_align-left slds-grid_vertical-align-center slds-table_bordered ">
+                <table class="slds-table slds-table_bordered  slds-table_cell-buffer slds-align_absolute-center slds-table_col-bordered">
+                    
+                    <div class="slds-col slds-size_1-of-8 slds-p-around_xx-small " style="border-right:2px dotted #ccc;" title="Image">
+                        <span >IMAGE</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-8 slds-p-around_xx-small" title="Product Name">
+                        <span></span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_2-of-8 slds-p-around_xx-small " style="border-right:2px dotted #ccc; border-left:2px dotted #ccc;" title="Title">
+                        <span>TITLE</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_3-of-8 slds-p-around_xx-small " style="border-right:2px dotted #ccc;" title="Description">
+                        <span>DESCRIPTION</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-16 slds-p-around_xx-small " style="border-right:2px dotted #ccc;" title="Cost">
+                        <span>COST</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-16 slds-p-around_xx-small "  title="Buy">
+                        <span></span>
+                    </div>
+                    
+                    
+                    <apex:repeat var="ProductItem" value="{!ProductList}">
+                        
+                        <div class="slds-col slds-size_1-of-8 " title="Image" align="center">
+                            <div class="slds-media slds-media_center" >
+                                <div class="slds-media__figure slds-p-around_xx-small"  >
+                                    <span>
+                                        <img src="{!ProductItem.Image_Url__c}" alt="" height="210" width="70" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-8 " title="Product Name" id="id">
+                            <span>
+                                <apex:commandLink action="{!goToDescriptionDetailPage}" target="_blank">
+                                    {!ProductItem.Name}
+                                    <apex:param name="clickedProductId" assignTo="{!clickedProductId}" value="{!ProductItem.Id}" />
+                                </apex:commandLink>
+                            </span>
+                        </div>
+                        
+                        <div class="slds-col slds-size_2-of-8 slds-p-around_xx-small" title="Title">
+                            <span>
+                                {!ProductItem.Title__c}
+                            </span>
+                        </div>
+                        
+                        <div class="slds-col slds-size_3-of-8 slds-p-around_xx-small" title="Description">
+                            <span>{!ProductItem.Product_Description__c}
+                                <apex:commandLink action="{!goToDescriptionDetailPage}" target="_blank">More
+                                    <apex:param name="clickedProductId" assignTo="{!clickedProductId}" value="{!ProductItem.Id}" />
+                                </apex:commandLink>
+                            </span></div>
+                        
+                        <div class="slds-col slds-size_1-of-16 slds-p-around_xx-small" title="Cost" align="center">
+                            <span>{!ProductItem.Unit_Price__c} $</span>
+                        </div>
+                        
+                        <div class="slds-col slds-size_1-of-16 slds-p-around_xx-small" title="Buy" align="center">
+                            <span >
+                                <apex:commandButton title="Buy" value="Buy" onclick="setChosenProductId('{!ProductItem}')" styleClass="BuyButton" /> 
+                            </span> 
+                        </div>
+                    </apex:repeat>
+                    
+                </table>
+            </div>  
+        </apex:PageBlock>
+        
+        <apex:actionFunction action="{!goToOrderPage}" name="setChosenProductId" reRender="prodList">
+            <apex:param name="chosenProductId" value="" assignTo="{!chosenProductId}"/>
+        </apex:actionFunction>
+        
+    </apex:form>
+</apex:page>

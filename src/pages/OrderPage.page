@@ -1,0 +1,35 @@
+<apex:page controller="OrderPageController" sidebar="false" doctype="html-5.0" tabStyle="Contact" >
+    <slds/>
+    <apex:form >
+        <apex:pageMessages /> 
+        <apex:PageBlock >          
+            <apex:pageBlockSection showHeader="false" columns="2" >
+                
+                <apex:pageBlockSection title="Contact Information" columns="1" >
+                    <apex:input value="{!BuyersEmail}" type="email" label="Email" />
+                    <apex:input value="{!BuyersFirstName}" label="First Name" />
+                    <apex:input value="{!BuyersLastName}" required="false" label="Last Name" />   
+                </apex:pageBlockSection> 
+                
+                <apex:pageBlockSection title="Product Information" columns="1" >
+                    <apex:outputText value="{!ChosenProduct.Name}" title="Product Name"   label="Product Name"/>
+                    <apex:outputText value="{!ChosenProduct.Unit_Price__c}  $" title="Cost" label="Cost" />
+                    <apex:input value="{!UnitCount}" title="Unit Count" onchange="TotalAmountValue('{!UnitCount}')" label="Unit Count"/>
+                    <apex:outputText value="{!TotalAmount} $" title="Total Amount" Id="TotalAmount"  label="Total Amount"  />    
+                </apex:pageBlockSection>
+                
+            </apex:pageBlockSection>
+            
+            <div align="center"  >
+                <apex:commandButton value="To Shopping" title="To Shopping" action="{!BackToShopping}" />
+                <apex:commandButton value="Buy" title="Buy"  action="{!Buy}" styleClass="BuyButton"  />
+            </div>
+            
+        </apex:PageBlock>
+        
+        <apex:actionFunction action="{!setTotalAmount}" reRender="TotalAmount" name="TotalAmountValue" >
+            <apex:param name="TotalAmount" value="" assignTo="{!TotalAmount}" />
+        </apex:actionFunction>
+        
+    </apex:form>
+</apex:page>

@@ -1,0 +1,77 @@
+<apex:page controller="ProductDescriptionDetailPageController" sidebar="false" docType="html-5.0" >
+    <apex:slds />
+    <apex:form >
+        <apex:PageBlock title="Description Details" id="Info">
+            <apex:pageMessages />
+            
+            <div class="slds-scope slds-grid slds-wrap slds-grid_align-left slds-grid_vertical-align-center slds-table_bordered ">
+                <table class="slds-table slds-table_bordered  slds-table_cell-buffer slds-align_absolute-center slds-table_col-bordered">
+                    <div class="slds-col slds-size_1-of-1 slds-p-around_xx-small " title="Name">
+                        <span>{!Product.name}</span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 " title="Image" align="center" >
+                        <div class="slds-media slds-media_center">
+                                    <img src="{!Product.Image_Url__c}" alt="" height="450" width="150" class="slds-media__figure slds-p-around_xx-small" align="center"/>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 " title="Information" > 
+                        <div class="slds-col  slds-p-around_xx-small" title="Amount">
+                            <span>AMOUNT:</span>
+                        </div>
+                        
+                        <div class="slds-col  slds-p-around_xx-small" title="Amount">
+                            <span>{!Product.Units_Available__c}</span>
+                        </div>
+                        
+                        <div class="slds-col slds-p-around_xx-small " title="Title">
+                            <span>TITLE:</span>
+                        </div>
+                        <div class="slds-col  slds-p-around_xx-small" title="Title">
+                            <span>
+                                {!Product.Title__c}
+                            </span>
+                        </div>  
+                        
+                        <div class="slds-col  slds-p-around_xx-small " title="Description">
+                            <span>DESCRIPTION:</span>
+                        </div>
+                        <div class="slds-col  slds-p-around_xx-small" title="Description">
+                            <span>{!Product.Product_Description__c}
+                            </span></div>   
+                        
+                        
+                        <div class="slds-col  slds-p-around_xx-small "  title="Cost">
+                            <span>COST:</span>
+                        </div>
+                        
+                        <div class="slds-col slds-p-around_xx-small" title="Cost" align="center">
+                            <span>{!Product.Unit_Price__c}  $</span>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="slds-col slds-size_1-of-2 " title="Back to Shopping" align="right">
+                        <span>
+                            <apex:commandButton value="To Shopping" title="To Shopping" action="{!BackToShopping}" />
+                        </span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-2 slds-p-around_xx-small" title="Buy" align="left">
+                        <span >
+                           <apex:commandButton title="Buy" value="Buy" onclick="setChosenProductId('{!selectedProductIdPage2}')" styleClass="BuyButton"  /> 
+                        </span>
+                    </div>
+                    
+                </table>
+            </div>  
+        </apex:PageBlock>
+        
+       <apex:actionFunction action="{!goToOrderPage}" name="setChosenProductId" reRender="Info">
+            <apex:param name="chosenProductId" value="" assignTo="{!chosenProductId}" />
+        </apex:actionFunction> 
+        
+    </apex:form>
+    
+</apex:page>
